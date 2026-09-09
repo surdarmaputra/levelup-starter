@@ -1,0 +1,36 @@
+{
+  "name": "levelup-starter",
+  "version": "0.1.0",
+  "description": "Starter template for publishing guided learning materials with reader progress tracking.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "verify": "bash scripts/verify-project.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surdarmaputra/levelup-starter.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/surdarmaputra/levelup-starter/issues"
+  },
+  "homepage": "https://github.com/surdarmaputra/levelup-starter#readme",
+  "dependencies": {
+    "@astrojs/mdx": "^7.0.7",
+    "@astrojs/starlight": "^0.41.7",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "astro": "^7.2.4",
+    "sharp": "^0.35.3"
+  },
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
+  }
+}

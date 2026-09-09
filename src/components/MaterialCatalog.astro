@@ -1,0 +1,161 @@
+---
+import { materials } from '../catalog';
+
+/** Join the configured base path with a content slug, e.g. `/docs/` + `spring-boot-ticketing`. */
+function href(slug: string) {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return `${base}/${slug}/`;
+}
+
+---
+
+<ul class="material-catalog">
+  {
+    materials.map((material, index) => (
+      <li class="material-card lu-glass" data-status={material.status} style={`--lu-i:${index}`}>
+        <h3 class="material-card__title">
+          {material.status === 'planned' ? (
+            material.title
+          ) : (
+            <a href={href(material.entry)}>{material.title}</a>
+          )}
+        </h3>
+        <p class="material-card__description">{material.description}</p>
+        <div class="material-card__meta">
+          <span>{material.level}</span>
+          <span aria-hidden="true">·</span>
+          <span>{material.size}</span>
+        </div>
+        <ul class="material-card__tags">
+          {material.tags.map((tag) => (
+            <li>{tag}</li>
+          ))}
+        </ul>
+        {material.status !== 'planned' && (
+          <a class="material-card__cta" href={href(material.entry)}>
+            Start learning
+            <span aria-hidden="true">→</span>
+          </a>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .material-catalog {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+  }
+
+  /* Fill, hairline and blur come from the shared `.lu-glass` recipe. */
+  .material-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border-radius: var(--lu-radius-card);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .material-card {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--lu-i, 0) * 70ms);
+      transition:
+        transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.2s ease;
+    }
+
+    .material-card:not([data-status='planned']):hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  @keyframes card-in {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .material-card:not([data-status='planned']):hover {
+    border-color: var(--lu-glass-border-hover);
+  }
+
+  .material-card[data-status='planned'] {
+    opacity: 0.6;
+  }
+
+  .material-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.15rem;
+    font-size: var(--sl-text-2xs);
+    color: var(--sl-color-gray-3);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .material-card__title {
+    margin: 0;
+    font-size: var(--sl-text-lg);
+    font-weight: 510;
+    letter-spacing: -0.012em;
+    line-height: 1.33;
+  }
+
+  .material-card__title a {
+    color: var(--sl-color-white);
+    text-decoration: none;
+  }
+
+  .material-card__description {
+    margin: 0;
+    color: var(--sl-color-gray-3);
+    font-size: var(--sl-text-xs);
+    line-height: 1.6;
+  }
+
+  .material-card__tags {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .material-card__tags li {
+    font-size: var(--sl-text-2xs);
+    padding: 0.15rem 0.6rem;
+    border-radius: var(--lu-radius-pill);
+    background: var(--lu-surface-hover);
+    color: var(--sl-color-gray-2);
+  }
+
+  .material-card__cta {
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-xs);
+    font-weight: 510;
+    text-decoration: none;
+  }
+
+  .material-card__cta span {
+    display: inline-block;
+    margin-left: 0.3rem;
+    transition: transform 0.15s ease;
+  }
+
+  .material-card__cta:hover span {
+    transform: translateX(0.2rem);
+  }
+</style>
